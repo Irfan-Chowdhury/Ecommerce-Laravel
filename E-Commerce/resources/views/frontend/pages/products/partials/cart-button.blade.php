@@ -1,4 +1,5 @@
-<form class="form-inline" action="{{route('carts.store')}}" method="post">
+{{-- <form class="form-inline" action="{{route('carts.store')}}" method="post"> --}}
+<form class="form-inline" action="{{URL::to('carts/store')}}" method="post">
     @csrf
 
     <input type="hidden" name="product_id" value="{{$product->id}}">

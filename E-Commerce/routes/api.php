@@ -18,9 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['prefix' => 'carts/', 'namespace'=>'API'], function () {
-    Route::get('/', 'CartController@index')->name('carts');
-    Route::post('/store','CartController@store')->name('carts.store');    
-    Route::post('/update/{id}','CartController@update')->name('carts.update');    
-    Route::post('/delete/{id}','CartController@delete')->name('carts.delete');    
+// Route::group(['prefix' => '/carts', 'namespace'=>'API'], function () {
+//     Route::get('/', 'CartController@index')->name('carts');
+//     Route::post('/store','CartController@store')->name('carts.store');    
+//     Route::post('/update/{id}','CartController@update')->name('carts.update');    
+//     Route::post('/delete/{id}','CartController@delete')->name('carts.delete');    
+// });
+Route::group(['prefix' => 'carts'], function(){
+	Route::get('/', 'API\CartController@index')->name('carts');
+	Route::post('/store', 'API\CartController@store')->name('carts.store');
+	Route::post('/update/{id}', 'API\CartController@update')->name('carts.update');
+	Route::post('/delete/{id}', 'API\CartController@delete')->name('carts.delete');
 });

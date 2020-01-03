@@ -9,10 +9,13 @@ use Auth;
 
 class CartController extends Controller
 {
-    
-  
+    // public function index()
+    // {
+    //     $cart = Cart::all();
+    //     // return view('frontend.pages.cart');
+    //     return view('frontend.pages.cart',compact('cart'));
+    // }
 
-    
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -54,7 +57,45 @@ class CartController extends Controller
         return json_encode(['status' => 'success', 'Message' => 'Product Added Successfully','totalItems'=> Cart::totalItems() ]);
 
         // session()->flash('Success','Product Added Successfully');
-        // return back();
+        //return back();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cart = Cart::find($id);
+        if ( !is_null($cart)) 
+        {
+            $cart->product_quantity = $request->product_quantity;
+            $cart->update();
+        }
+        else 
+        {
+            return redirect()->route('carts');
+        }
+        session()->flash('Success','Cart Item Updated Succssfully');
+        return back();
+    }
+
+    public function delete($id)
+    {
+        $cart = Cart::find($id);
+        if ( !is_null($cart)) 
+        {
+            $cart->delete();
+        }
+        else 
+        {
+            // if (is_null($cart)) 
+            // {
+            //     return redirect()->route('products');
+            // }
+            // else {
+            //     return redirect()->route('carts');
+            // }
+            return redirect()->route('carts');
+        }
+        session()->flash('Success','Cart Deleted Succssfully');
+        return back();
     }
 
    

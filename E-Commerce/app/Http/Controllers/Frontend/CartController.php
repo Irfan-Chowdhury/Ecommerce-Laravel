@@ -54,8 +54,10 @@ class CartController extends Controller
             $cart->save();
         }
 
-        session()->flash('Success','Product Added Successfully');
-        return back();
+        return json_encode([ 'status' => 'success', 'Message' => 'Item Added to the Cart', 'totalItems' => Cart::totalItems() ]);
+
+        // session()->flash('Success','Product Added Successfully');
+        // return back();
     }
 
    
